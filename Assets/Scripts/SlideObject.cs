@@ -5,6 +5,7 @@ using UnityEngine.Splines;
 
 public class SlideObject : MonoBehaviour
 {
+    protected BuildManager buildManager;
     public SplineAnimate _splineAnim { get; set; }
 
     public float _duration = 1.0f;
@@ -50,6 +51,7 @@ public class SlideObject : MonoBehaviour
     {
         OnStartBehavior();
         PlaySplinePath();
+        buildManager = BuildManager.instance;
     }
 
     // Update is called once per frame

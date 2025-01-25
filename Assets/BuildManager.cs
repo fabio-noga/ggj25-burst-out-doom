@@ -7,6 +7,8 @@ public class BuildManager : MonoBehaviour
     public TMP_Text currencyText;
     public double currencyTotal;
 
+    public int enemyCounter = 0;
+
     private void Awake()
     {
         if (instance != null)

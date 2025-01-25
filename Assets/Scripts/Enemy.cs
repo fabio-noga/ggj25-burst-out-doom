@@ -3,7 +3,6 @@ using UnityEngine;
 
 public class Enemy : SlideObject
 {
-    BuildManager buildManager = BuildManager.instance;
     public EnemyClass type = EnemyClass.SMALL;
 
     /*public Enemy(EnemyClass type) 
@@ -34,7 +33,7 @@ public class Enemy : SlideObject
         else 
             buildManager.subCurrency(20);
 
-        Debug.Log("END");
+        buildManager.enemyCounter--;
         Destroy(gameObject);
     }
 
@@ -55,7 +54,7 @@ public class Enemy : SlideObject
         if (getLife() <= 0)
         {
             Destroy(gameObject);
-            Debug.Log(getPrice());
+            buildManager.enemyCounter--;
             buildManager.addCurrency(getPrice());
         }
 

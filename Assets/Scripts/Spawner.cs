@@ -1,7 +1,10 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
+using System.Threading;
 using NUnit.Framework;
+using TMPro;
 using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.Splines;
@@ -17,12 +20,17 @@ public class Spawner : MonoBehaviour
     [SerializeField]
     private GameObject _bossEnemy;
 
+    public float timeBetweenWaves = 5f;
+    private float countdown;
+    public TMP_Text timeText;
 
-    [SerializeField]
-    private int waitTime = 1;
+    private List<string> roundList;
+    public bool isRoundGoing = false;
 
-    [SerializeField]
-    private int amount;
+    private int roundsTotal;
+    private int roundsLeft;
+
+    BuildManager buildManager;
 
     private void Start()
     {
@@ -32,14 +40,40 @@ public class Spawner : MonoBehaviour
             _spline = GameObject.Find("Path").GetComponent<SplineContainer>();
         }
 
-        List<string> roundList = new List<string>
+        roundList = new List<string>
         {
-            "sssbssbsgs 1"
+            "sssbssbsgs 1000",
+            "sbsbsgggs 500"
         };
 
-        StartSpawningCoRoutine(roundList);
+        roundsLeft = roundList.Count;
+        roundsTotal = roundsLeft;
+
+        countdown = timeBetweenWaves;
+        buildManager = BuildManager.instance;
     }
-    
+    private void Update()
+    {
+        if (isRoundGoing)
+        {
+            if (buildManager.enemyCounter == 0)
+            {
+                resetRound();
+            }
+            return;
+        }
+
+        if(countdown <= 0f)
+        {
+            isRoundGoing=true;
+            StartSpawningCoRoutine(roundList);
+        }
+
+        countdown -= Time.deltaTime;
+        countdown = Mathf.Clamp(countdown, 0f, Mathf.Infinity);
+        timeText.SetText(string.Format("{0:00.00}", countdown));
+    }
+
     void SpawnEnemy(char type)
     {
         GameObject enemy;
@@ -49,26 +83,33 @@ public class Spawner : MonoBehaviour
             case 'g': enemy = GameObject.Instantiate(_bossEnemy); break;
             default: enemy = GameObject.Instantiate(_smallEnemy); break;
         }
+        buildManager.enemyCounter++;
         enemy.GetComponent<SplineAnimate>().Container = _spline;
     }
 
     public void StartSpawningCoRoutine(List<string> enemyList)
     {
-        StartCoroutine(SpawnerRoutine(enemyList));
+        StartCoroutine(SpawnerRoutine(enemyList.ElementAt(roundsTotal - roundsLeft)));
     }
 
-    IEnumerator SpawnerRoutine(List<string> enemyList)
+    IEnumerator SpawnerRoutine(string enemieRaw)
     {
-        foreach (string enemieRaw in enemyList)
+        string enemies = enemieRaw.Split(' ')[0];
+        int waitTime = Int32.Parse(enemieRaw.Split(' ')[1]);
+        foreach (char enemy in enemies)
         {
-            string enemies = enemieRaw.Split(' ')[0];
-            int waitTime = Int32.Parse(enemieRaw.Split(' ')[1]);
-            foreach (char enemy in enemies)
-            {
-                SpawnEnemy(enemy);
-                yield return new WaitForSeconds(waitTime);
-            }
-            yield return null;
+            SpawnEnemy(enemy);
+            yield return new WaitForSeconds(waitTime/1000f);
         }
+        yield return null;
+    }
+
+    private void resetRound()
+    {
+        if (roundsLeft == 0)
+            return;
+        roundsLeft--;
+        isRoundGoing = false;
+        countdown = timeBetweenWaves;
     }
 }
