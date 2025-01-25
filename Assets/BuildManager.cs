@@ -4,8 +4,8 @@ using UnityEngine;
 public class BuildManager : MonoBehaviour
 {
     public static BuildManager instance;
-    public TextMeshPro currencyText;
-    private double currencyTotal;
+    public TMP_Text currencyText;
+    public double currencyTotal;
 
     private void Awake()
     {
@@ -26,14 +26,19 @@ public class BuildManager : MonoBehaviour
         turretToBuild = turret;
     }
 
+    public void SetTurretToSell()
+    {
+        turretToBuild = null;
+    }
+
     public void addCurrency(int price)
     {
-
+        currencyTotal += price;
     }
 
     public void subCurrency(int price)
     {
-
+        currencyTotal -= price;
     }
 
     private void Update()
@@ -43,7 +48,7 @@ public class BuildManager : MonoBehaviour
 
     private void updateCurrency()
     {
-        //currencyText.text = currencyTotal+"";
+        currencyText.SetText(currencyTotal+"");
     }
 
     private void Start()

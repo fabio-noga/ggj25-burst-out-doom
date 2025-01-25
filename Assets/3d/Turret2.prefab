@@ -266,9 +266,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b7c29a3459f110543879a485011c3606, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  range: 15
-  turnSpeed: 10
+  range: 8
   fireRate: 1
+  bulletDamage: 20
+  bulletSpeed: 5
   enemyTag: enemy
   bulletPrefab: {fileID: 9177666921304709351, guid: 750cde82669b21846a2e3a5c18626f92, type: 3}
   firePoint: {fileID: 9015871922326116289}

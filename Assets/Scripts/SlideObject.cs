@@ -10,7 +10,7 @@ public class SlideObject : MonoBehaviour
     public float _duration = 1.0f;
 
     [SerializeField]
-    protected int _hp = 100000;
+    protected int _hp = 100;
 
     protected bool _isDead = false;
 
@@ -61,7 +61,9 @@ public class SlideObject : MonoBehaviour
             _reset = false;
             ResetSplinePath();
         }
-        OnReachSplineEnd();
+        if(CheckSplineEnd() == true){
+            OnReachSplineEnd();
+        }
     }
 
     public void ReceiveDamage()

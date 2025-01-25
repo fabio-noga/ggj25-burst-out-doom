@@ -148,5 +148,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _duration: 15
-  _hp: 100000
+  _hp: 100
   _reset: 0

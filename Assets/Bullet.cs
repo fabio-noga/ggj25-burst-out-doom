@@ -1,11 +1,14 @@
+using System;
 using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
 
-    private GameObject target;
+    public GameObject target;
     public float speed = 70f;
     public GameObject impactEffect;
+    private Boolean hitted = false;
+    public int damage = 1;
 
     public void Seek(GameObject _target)
     {
@@ -25,7 +28,7 @@ public class Bullet : MonoBehaviour
         Vector3 dir = target.transform.position - transform.position;
         float distanceThisFrame = speed * Time.deltaTime;
 
-        if (dir.magnitude <= distanceThisFrame)
+        if (!hitted && dir.magnitude <= distanceThisFrame)
         {
             HitTarget();
             return;
@@ -36,19 +39,24 @@ public class Bullet : MonoBehaviour
 
     void HitTarget()
     {
+        hitted = true;
         GameObject effect = Instantiate(impactEffect, transform.position, transform.rotation);
-        CheckLife(target);
+        Destroy(effect, 2f);
+        if(target != null)
+            CheckLife(target);
         Destroy(gameObject);
         //Destroy(target);
-        Destroy(effect,2f);
     }
 
     void CheckLife(GameObject _enemy)
     {
-        EnemyMovement enemy = _enemy.GetComponent<EnemyMovement>();
-        enemy.life -= 10;
-        Debug.Log(enemy.life);
-        if (enemy.life <= 0)
-            Destroy(_enemy);
+        Enemy enemy = _enemy.GetComponent<Enemy>();
+        enemy.subLife(damage);
+    }
+
+    public void build(int damage, float speed)
+    {
+        this.speed = speed;
+        this.damage = damage;
     }
 }

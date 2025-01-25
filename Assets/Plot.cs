@@ -12,18 +12,38 @@ public class Plot : MonoBehaviour
 
     private void OnMouseEnter()
     {
-        if(buildManager.GetTurretToBuild() == null)
-            return;
         rend.material.color = hoverColor;    
     }
 
     private void OnMouseDown()
-    {
-        if (turret != null || buildManager.GetTurretToBuild() == null)
+    {   
+        if(buildManager.GetTurretToBuild() == null)
+        {
+            if (turret == null)
+                return;
+            sellTurret();
             return;
+        }
+        if(turret != null)
+            return;
+        buildTurret();
+    }
 
+    private void sellTurret()
+    {
+        Turret turretParams = turret.GetComponent<Turret>();
+        buildManager.addCurrency((int) (turretParams.price * 0.8)); //80% of the price back
+        Destroy(turret);
+        turret = null;
+    }
+
+    private void buildTurret()
+    {
         GameObject turretToBuild = BuildManager.instance.GetTurretToBuild();
-        turret = (GameObject) Instantiate(turretToBuild, transform.position, transform.rotation);
+        turret = (GameObject)Instantiate(turretToBuild, transform.position, transform.rotation);
+
+        Turret turretParams = turret.GetComponent<Turret>();
+        buildManager.subCurrency(turretParams.price); //80% of the price back
     }
 
     private void OnMouseExit()
