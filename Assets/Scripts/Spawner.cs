@@ -27,8 +27,8 @@ public class Spawner : MonoBehaviour
     private List<string> roundList;
     public bool isRoundGoing = false;
 
-    private int roundsTotal;
     private int roundsLeft;
+    private int roundsTotal;
 
     BuildManager buildManager;
 
@@ -44,8 +44,12 @@ public class Spawner : MonoBehaviour
 
         roundList = new List<string>
         {
-            "sssbssbsgs 1000",
-            "sbsbsgggs 500"
+            "sssssbb 1000",
+            "ssbssbss 900",
+            "ssbgssb 800",
+            "ssbgggbbb 700",
+            "sbbsbbggg 600",
+            "bbbgggbbb 500"
         };
 
         roundsLeft = roundList.Count;
@@ -84,21 +88,29 @@ public class Spawner : MonoBehaviour
             case 'b': 
                 enemy = GameObject.Instantiate(_bigEnemy);
                 enemy.GetComponent<Enemy>().setSpeed(2f);
+                enemy.GetComponent<Enemy>().setLife(300);
                 break;
             case 'g': 
                 enemy = GameObject.Instantiate(_bossEnemy);
                 enemy.GetComponent<Enemy>().setSpeed(.3f);
+                enemy.GetComponent<Enemy>().setLife(50);
                 break;
             default: enemy = GameObject.Instantiate(_smallEnemy); break;
         }
         buildManager.enemyCounter++;
         enemy.GetComponent<SplineAnimate>().Container = _spline;
-        PlayAudioSpawnEnemy();
+        //PlayAudioSpawnEnemy();
     }
 
     public void StartSpawningCoRoutine(List<string> enemyList)
     {
-        StartCoroutine(SpawnerRoutine(enemyList.ElementAt(roundsTotal - roundsLeft)));
+        string round;
+        if (roundsLeft < 0)
+            round = generateRound();
+        else
+            round = enemyList.ElementAt(roundsTotal - roundsLeft);
+        Debug.Log(round);
+        StartCoroutine(SpawnerRoutine(round));
     }
 
     IEnumerator SpawnerRoutine(string enemieRaw)
@@ -115,11 +127,25 @@ public class Spawner : MonoBehaviour
 
     private void resetRound()
     {
-        if (roundsLeft == 0)
-            return;
         roundsLeft--;
         isRoundGoing = false;
         countdown = timeBetweenWaves;
+    }
+
+    private string generateRound()
+    {
+        string result = "";
+        System.Random r = new System.Random();
+        int size = r.Next(10, 15);
+        for (int i = 0; i <= size; i++)
+        {
+            int randomVal = r.Next(0, 10);
+            if (randomVal < 5) result += "s";
+            if (randomVal > 4 && randomVal < 8) result += "b";
+            if (randomVal > 7) result += "g";
+        }
+
+        return result + " 500";
     }
 
     void PlayAudioSpawnEnemy()
