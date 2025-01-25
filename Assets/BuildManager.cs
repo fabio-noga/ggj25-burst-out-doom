@@ -52,9 +52,4 @@ public class BuildManager : MonoBehaviour
     {
         currencyText.SetText(currencyTotal+"");
     }
-
-    private void Start()
-    {
-        currencyTotal = 1000;
-    }
 }
