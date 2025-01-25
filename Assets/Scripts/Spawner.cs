@@ -32,6 +32,8 @@ public class Spawner : MonoBehaviour
 
     BuildManager buildManager;
 
+    AudioSource _audioSource;
+
     private void Start()
     {
         // Temp
@@ -91,6 +93,7 @@ public class Spawner : MonoBehaviour
         }
         buildManager.enemyCounter++;
         enemy.GetComponent<SplineAnimate>().Container = _spline;
+        PlayAudioSpawnEnemy();
     }
 
     public void StartSpawningCoRoutine(List<string> enemyList)
@@ -117,5 +120,14 @@ public class Spawner : MonoBehaviour
         roundsLeft--;
         isRoundGoing = false;
         countdown = timeBetweenWaves;
+    }
+
+    void PlayAudioSpawnEnemy()
+    {
+        if (_audioSource == null)
+        {
+            _audioSource = GetComponent<AudioSource>();
+        }
+        _audioSource.Play();
     }
 }
