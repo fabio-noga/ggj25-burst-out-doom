@@ -52,4 +52,9 @@ public class BuildManager : MonoBehaviour
     {
         currencyText.SetText(currencyTotal+"");
     }
+
+    public bool canBuy(int price)
+    {
+        return currencyTotal - price >= 0;
+    }
 }

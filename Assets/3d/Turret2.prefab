@@ -222,7 +222,7 @@ MonoBehaviour:
   fireRate: 0.5
   bulletDamage: 40
   bulletSpeed: 200
-  price: 100
+  price: 150
   enemyTag: enemy
   bulletPrefab: {fileID: 9177666921304709351, guid: 750cde82669b21846a2e3a5c18626f92, type: 3}
   firePoint: {fileID: 9015871922326116289}

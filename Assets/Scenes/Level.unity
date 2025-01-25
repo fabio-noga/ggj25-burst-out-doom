@@ -1388,7 +1388,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2691805377332390949, guid: 153476fbaec6737499999c02a8cfb551, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 63.497
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 2691805377332390949, guid: 153476fbaec6737499999c02a8cfb551, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1440,7 +1440,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4808246539011038740, guid: 153476fbaec6737499999c02a8cfb551, type: 3}
       propertyPath: m_text
-      value: Sniper
+      value: 'Sniper
+
+        17 range
+
+        0.25x fire rate
+
+        200$'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4808246539011038740, guid: 153476fbaec6737499999c02a8cfb551, type: 3}
+      propertyPath: m_fontSize
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 4808246539011038740, guid: 153476fbaec6737499999c02a8cfb551, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 5704379797473148578, guid: 153476fbaec6737499999c02a8cfb551, type: 3}
       propertyPath: m_Name
@@ -1521,7 +1535,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2691805377332390949, guid: 153476fbaec6737499999c02a8cfb551, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 63.497
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 2691805377332390949, guid: 153476fbaec6737499999c02a8cfb551, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1573,7 +1587,25 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4808246539011038740, guid: 153476fbaec6737499999c02a8cfb551, type: 3}
       propertyPath: m_text
-      value: Shooter
+      value: 'Shooter
+
+        12 range
+
+        1x fire rate
+
+        100$'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4808246539011038740, guid: 153476fbaec6737499999c02a8cfb551, type: 3}
+      propertyPath: m_fontSize
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 4808246539011038740, guid: 153476fbaec6737499999c02a8cfb551, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 4808246539011038740, guid: 153476fbaec6737499999c02a8cfb551, type: 3}
+      propertyPath: m_enableAutoSizing
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5704379797473148578, guid: 153476fbaec6737499999c02a8cfb551, type: 3}
       propertyPath: m_Name
@@ -1713,7 +1745,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2691805377332390949, guid: 153476fbaec6737499999c02a8cfb551, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 63.497
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 2691805377332390949, guid: 153476fbaec6737499999c02a8cfb551, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2035,7 +2067,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2691805377332390949, guid: 153476fbaec6737499999c02a8cfb551, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 63.497
+      value: 100
       objectReference: {fileID: 0}
     - target: {fileID: 2691805377332390949, guid: 153476fbaec6737499999c02a8cfb551, type: 3}
       propertyPath: m_LocalPosition.x
@@ -2087,7 +2119,21 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4808246539011038740, guid: 153476fbaec6737499999c02a8cfb551, type: 3}
       propertyPath: m_text
-      value: Shotgun
+      value: 'Shotgun
+
+        8 range
+
+        0.5x fire rate
+
+        150$'
+      objectReference: {fileID: 0}
+    - target: {fileID: 4808246539011038740, guid: 153476fbaec6737499999c02a8cfb551, type: 3}
+      propertyPath: m_fontSize
+      value: 16
+      objectReference: {fileID: 0}
+    - target: {fileID: 4808246539011038740, guid: 153476fbaec6737499999c02a8cfb551, type: 3}
+      propertyPath: m_fontSizeBase
+      value: 16
       objectReference: {fileID: 0}
     - target: {fileID: 5704379797473148578, guid: 153476fbaec6737499999c02a8cfb551, type: 3}
       propertyPath: m_Name

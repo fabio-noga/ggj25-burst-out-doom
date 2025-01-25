@@ -40,6 +40,9 @@ public class Plot : MonoBehaviour
     private void buildTurret()
     {
         GameObject turretToBuild = BuildManager.instance.GetTurretToBuild();
+        int price = turretToBuild.GetComponent<Turret>().price;
+        if (!buildManager.canBuy(price))
+            return;
         turret = (GameObject)Instantiate(turretToBuild, transform.position, transform.rotation);
 
         Turret turretParams = turret.GetComponent<Turret>();
