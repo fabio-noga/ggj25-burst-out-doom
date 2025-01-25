@@ -42,7 +42,6 @@ GameObject:
   - component: {fileID: 2491393020218871070}
   - component: {fileID: 8484273297621232492}
   - component: {fileID: 7567649198466642074}
-  - component: {fileID: 6298646627145402614}
   m_Layer: 0
   m_Name: Cylinder
   m_TagString: Untagged
@@ -118,29 +117,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &6298646627145402614
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6056187892665982545}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
 --- !u!1 &8628864821448069172
 GameObject:
   m_ObjectHideFlags: 0
@@ -152,7 +128,6 @@ GameObject:
   - component: {fileID: 5136899862237798998}
   - component: {fileID: 5138062090075815826}
   - component: {fileID: 1794362275955205859}
-  - component: {fileID: 2293409875517299302}
   - component: {fileID: 1397294661340112216}
   m_Layer: 0
   m_Name: Turret2
@@ -209,7 +184,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 1cf0286d334cd054584f88a3c56ae553, type: 2}
+  - {fileID: 2100000, guid: f29303dad0a144341b25feb8216964da, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -231,29 +206,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &2293409875517299302
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8628864821448069172}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &1397294661340112216
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -267,9 +219,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   range: 8
-  fireRate: 1
-  bulletDamage: 20
-  bulletSpeed: 5
+  fireRate: 0.5
+  bulletDamage: 40
+  bulletSpeed: 200
+  price: 100
   enemyTag: enemy
   bulletPrefab: {fileID: 9177666921304709351, guid: 750cde82669b21846a2e3a5c18626f92, type: 3}
   firePoint: {fileID: 9015871922326116289}

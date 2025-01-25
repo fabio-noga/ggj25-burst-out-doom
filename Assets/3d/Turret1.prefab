@@ -42,7 +42,6 @@ GameObject:
   - component: {fileID: 8004312434032625862}
   - component: {fileID: 1902849796874220553}
   - component: {fileID: 4391158885583220509}
-  - component: {fileID: 8030648262615647504}
   - component: {fileID: 7471645918612145493}
   m_Layer: 0
   m_Name: Turret1
@@ -121,29 +120,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &8030648262615647504
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5492827529125207407}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0, y: 0, z: 0}
 --- !u!114 &7471645918612145493
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -160,6 +136,7 @@ MonoBehaviour:
   fireRate: 1
   bulletDamage: 20
   bulletSpeed: 70
+  price: 100
   enemyTag: enemy
   bulletPrefab: {fileID: 9177666921304709351, guid: 750cde82669b21846a2e3a5c18626f92, type: 3}
   firePoint: {fileID: 6239897295618200721}
@@ -174,7 +151,6 @@ GameObject:
   - component: {fileID: 8760029999207967636}
   - component: {fileID: 7812890167381967604}
   - component: {fileID: 112664542023338656}
-  - component: {fileID: 6756467144774145084}
   m_Layer: 0
   m_Name: Cylinder
   m_TagString: Untagged
@@ -250,26 +226,3 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!136 &6756467144774145084
-CapsuleCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6427255696835297264}
-  m_Material: {fileID: 0}
-  m_IncludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_ExcludeLayers:
-    serializedVersion: 2
-    m_Bits: 0
-  m_LayerOverridePriority: 0
-  m_IsTrigger: 0
-  m_ProvidesContacts: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Radius: 0.5000001
-  m_Height: 2
-  m_Direction: 1
-  m_Center: {x: 0.000000059604645, y: 0, z: -0.00000008940697}
