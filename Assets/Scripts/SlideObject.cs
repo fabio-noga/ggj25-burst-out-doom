@@ -8,6 +8,7 @@ public class SlideObject : MonoBehaviour
     protected BuildManager buildManager;
     public SplineAnimate _splineAnim { get; set; }
 
+    
     public float _duration = 1.0f;
 
     [SerializeField]
@@ -20,11 +21,13 @@ public class SlideObject : MonoBehaviour
     [SerializeField]
     private bool _reset = false;
 
+    private float speed = 1f;
+
     void OnStartBehavior()
     {
         _splineAnim = GetComponent<SplineAnimate>();
         _splineAnim.Loop = SplineAnimate.LoopMode.Once;
-        _splineAnim.Duration = _duration;
+        _splineAnim.Duration = getDuration();
     }
 
     void ResetSplinePath()
@@ -39,7 +42,7 @@ public class SlideObject : MonoBehaviour
 
     public bool CheckSplineEnd()
     {
-        if(_splineAnim.ElapsedTime >= _duration)
+        if(_splineAnim.ElapsedTime >= getDuration())
         {
             return true;
         }
@@ -99,4 +102,14 @@ public class SlideObject : MonoBehaviour
     }
 
     protected virtual void OnReachSplineEnd() { }
+
+    private float getDuration()
+    {
+        return _duration * speed;
+    }
+
+    public void setSpeed(float speed)
+    {
+        this.speed = speed;
+    }
 }
