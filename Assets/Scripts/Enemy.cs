@@ -78,3 +78,27 @@ public class Enemy : SlideObject
         SMALL, BIG, BOSS
     }
 }
+
+public class SmallEnemy : Enemy
+{
+    public SmallEnemy()
+    {
+        type = EnemyClass.SMALL;
+    }
+}
+
+public class BigEnemy : Enemy
+{
+    public BigEnemy()
+    {
+        type = EnemyClass.BIG;
+    }
+}
+
+public class BossEnemy : Enemy
+{
+    public BossEnemy()
+    {
+        type = EnemyClass.BOSS;
+    }
+}
