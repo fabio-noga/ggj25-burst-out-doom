@@ -1,4 +1,5 @@
 using System.Collections;
+using UnityEditor.SearchService;
 using UnityEngine;
 using UnityEngine.Splines;
 
@@ -18,7 +19,12 @@ public class Spawner : MonoBehaviour
     private void Start()
     {
         // Temp
-        SpawnerRoutine(3, 1);
+        if(_spline == null)
+        {
+            _spline = GameObject.Find("Path").GetComponent<SplineContainer>();
+        }
+
+        StartSpawningCoRoutine(3, 1);
     }
 
     void SpawnEnemy()
