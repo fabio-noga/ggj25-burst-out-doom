@@ -79,8 +79,14 @@ public class Spawner : MonoBehaviour
         GameObject enemy;
         switch (type)
         {
-            case 'b': enemy = GameObject.Instantiate(_bigEnemy); break;
-            case 'g': enemy = GameObject.Instantiate(_bossEnemy); break;
+            case 'b': 
+                enemy = GameObject.Instantiate(_bigEnemy);
+                enemy.GetComponent<Enemy>().setSpeed(2f);
+                break;
+            case 'g': 
+                enemy = GameObject.Instantiate(_bossEnemy);
+                enemy.GetComponent<Enemy>().setSpeed(.3f);
+                break;
             default: enemy = GameObject.Instantiate(_smallEnemy); break;
         }
         buildManager.enemyCounter++;
