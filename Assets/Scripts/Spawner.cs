@@ -2,11 +2,9 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
-using System.Threading;
-using NUnit.Framework;
 using TMPro;
-using UnityEditor.SearchService;
 using UnityEngine;
+using UnityEngine.Audio;
 using UnityEngine.Splines;
 
 public class Spawner : MonoBehaviour
@@ -24,6 +22,7 @@ public class Spawner : MonoBehaviour
     private float countdown;
     public TMP_Text timeText;
 
+    [SerializeField]
     private List<string> roundList;
     public bool isRoundGoing = false;
 
@@ -33,6 +32,9 @@ public class Spawner : MonoBehaviour
     BuildManager buildManager;
 
     AudioSource _audioSource;
+
+    public AudioResource _roundSfx;
+    public AudioResource _spawnSfx;
 
     private void Start()
     {
@@ -74,10 +76,13 @@ public class Spawner : MonoBehaviour
             isRoundGoing=true;
             StartSpawningCoRoutine(roundList);
         }
-
-        countdown -= Time.deltaTime;
-        countdown = Mathf.Clamp(countdown, 0f, Mathf.Infinity);
-        timeText.SetText(string.Format("{0:00.00}", countdown));
+        // temp hack
+        if (countdown < 999)
+        {
+            countdown -= Time.deltaTime;
+            countdown = Mathf.Clamp(countdown, 0f, Mathf.Infinity);
+            timeText.SetText(string.Format("{0:00.00}", countdown));
+        }
     }
 
     void SpawnEnemy(char type)
@@ -99,18 +104,31 @@ public class Spawner : MonoBehaviour
         }
         buildManager.enemyCounter++;
         enemy.GetComponent<SplineAnimate>().Container = _spline;
-        //PlayAudioSpawnEnemy();
+        enemy.transform.SetPositionAndRotation(new Vector3(-100.0f, 0f, 0f), Quaternion.identity);
+        PlayAudioSource(_spawnSfx);
     }
 
     public void StartSpawningCoRoutine(List<string> enemyList)
     {
-        string round;
+        string round = "";
         if (roundsLeft < 0)
-            round = generateRound();
+        {
+            //round = generateRound();
+
+            // game WIN routine
+            // go to menu
+
+            
+        }
         else
-            round = enemyList.ElementAt(roundsTotal - roundsLeft);
-        Debug.Log(round);
-        StartCoroutine(SpawnerRoutine(round));
+        {
+            if(enemyList.Count > 0)
+            {
+                round = enemyList.ElementAt(roundsTotal - roundsLeft);
+                Debug.Log(round);
+            }
+            StartCoroutine(SpawnerRoutine(round));
+        }
     }
 
     IEnumerator SpawnerRoutine(string enemieRaw)
@@ -129,7 +147,16 @@ public class Spawner : MonoBehaviour
     {
         roundsLeft--;
         isRoundGoing = false;
-        countdown = timeBetweenWaves;
+        if(roundsLeft < 0)
+        {
+            GameMaster.instance.Win();
+            countdown = 99999;
+        }
+        else
+        {
+            countdown = timeBetweenWaves;
+            StartCoroutine(PlayRoundAudioCoroutine());
+        }
     }
 
     private string generateRound()
@@ -148,12 +175,22 @@ public class Spawner : MonoBehaviour
         return result + " 500";
     }
 
-    void PlayAudioSpawnEnemy()
+    IEnumerator PlayRoundAudioCoroutine()
+    {
+        for (int i = 0; i >= 5; i++){
+            yield return new WaitForSeconds(0.1f);
+            PlayAudioSource(_roundSfx);
+        }
+        yield return null;
+    }
+
+    void PlayAudioSource(AudioResource audioClip)
     {
         if (_audioSource == null)
         {
             _audioSource = GetComponent<AudioSource>();
         }
+        _audioSource.resource = audioClip;
         _audioSource.Play();
     }
 }

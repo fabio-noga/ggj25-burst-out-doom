@@ -41,6 +41,10 @@ public class BuildManager : MonoBehaviour
     public void subCurrency(int price)
     {
         currencyTotal -= price;
+        if(currencyTotal < 0)
+        {
+            currencyTotal = 0;
+        }
     }
 
     private void Update()

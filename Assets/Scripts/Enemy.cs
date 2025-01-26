@@ -1,9 +1,22 @@
 using System;
 using UnityEngine;
+using UnityEngine.Audio;
+using UnityEngine.UI;
 
 public class Enemy : SlideObject
 {
     public EnemyClass type = EnemyClass.SMALL;
+
+    private Quaternion _fixedRotation = Quaternion.Euler(45.0f, 0.0f, 0.0f);
+
+    public Slider _slider;
+
+    private AudioSource _audioSource;
+    
+    [SerializeField]
+    private AudioResource _bossSfx;
+    [SerializeField]
+    private AudioResource _normalSfx;
 
     /*public Enemy(EnemyClass type) 
     {
@@ -22,16 +35,39 @@ public class Enemy : SlideObject
     {
          buildManager = BuildManager.instance;
     }*/
+    private void Start()
+    {
+        base.Start();
+        _slider.maxValue = _maxHp;
+    }
+
+    protected void Update()
+    {
+        base.Update();
+        _slider.transform.rotation = _fixedRotation;
+
+        if(_slider.value != _hp)
+            _slider.value = _hp;
+    }
 
     protected override void OnReachSplineEnd()
     {
         base.OnReachSplineEnd();
 
+
         // retirar score, vida whatever
         if (type == EnemyClass.BOSS)
+        {
+            PlayAudioSource(_bossSfx);
             buildManager.subCurrency(10000);
-        else 
+            _gameMaster.SubTapiocaHp(100);
+        }
+        else
+        {
+            PlayAudioSource(_normalSfx);
             buildManager.subCurrency(20);
+            _gameMaster.SubTapiocaHp(10);
+        }
 
         buildManager.enemyCounter--;
         Destroy(gameObject);
@@ -76,6 +112,17 @@ public class Enemy : SlideObject
     {
         SMALL, BIG, BOSS
     }
+
+    void PlayAudioSource(AudioResource audioClip)
+    {
+        if(_audioSource == null)
+        {
+            _audioSource = GetComponent<AudioSource>();
+        }
+        _audioSource.resource = audioClip;
+
+        _audioSource.Play();
+    }
 }
 
 public class SmallEnemy : Enemy
@@ -101,3 +148,5 @@ public class BossEnemy : Enemy
         type = EnemyClass.BOSS;
     }
 }
+
+

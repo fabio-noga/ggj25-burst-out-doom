@@ -1,5 +1,5 @@
-using JetBrains.Annotations;
 using UnityEngine;
+using UnityEngine.Audio;
 
 public class Turret : MonoBehaviour
 {
@@ -21,10 +21,25 @@ public class Turret : MonoBehaviour
 
     private float fireCountdown = 0f;
 
+    private AudioSource _audioSource;
+
+    public AudioResource _shootSfx;
+    public AudioResource _startSfx;
+
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
+        PlayAudioSource(_startSfx);
         InvokeRepeating("UpdateTarget", 0f, 0.5f);
+    }
+    void PlayAudioSource(AudioResource audioClip)
+    {
+        if (_audioSource == null)
+        {
+            _audioSource = gameObject.AddComponent<AudioSource>();
+        }
+        _audioSource.resource = audioClip;
+        _audioSource.Play();
     }
 
     void UpdateTarget()
@@ -81,6 +96,7 @@ public class Turret : MonoBehaviour
         {
             bullet.Seek(target);
         }
+        PlayAudioSource(_shootSfx);
     }
 
     private void OnDrawGizmosSelected()

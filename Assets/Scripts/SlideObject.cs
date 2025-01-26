@@ -6,13 +6,17 @@ using UnityEngine.Splines;
 public class SlideObject : MonoBehaviour
 {
     protected BuildManager buildManager;
+
+    protected GameMaster _gameMaster;
     public SplineAnimate _splineAnim { get; set; }
 
     
     public float _duration = 1.0f;
 
     [SerializeField]
-    protected int _hp = 100;
+    protected int _maxHp = 100;
+    
+    protected int _hp;
 
     protected bool _isDead = false;
 
@@ -42,7 +46,7 @@ public class SlideObject : MonoBehaviour
 
     public bool CheckSplineEnd()
     {
-        if(_splineAnim.ElapsedTime >= getDuration())
+        if (_splineAnim.ElapsedTime >= getDuration())
         {
             return true;
         }
@@ -50,15 +54,17 @@ public class SlideObject : MonoBehaviour
     }
 
     // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
+    protected void Start()
     {
         OnStartBehavior();
         PlaySplinePath();
         buildManager = BuildManager.instance;
+        _gameMaster = GameMaster.instance;
+        _hp = _maxHp;
     }
 
     // Update is called once per frame
-    void Update()
+    protected void Update()
     {
         // Temp
         if(_reset == true)
