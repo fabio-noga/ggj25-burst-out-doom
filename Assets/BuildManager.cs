@@ -43,30 +43,24 @@ public class BuildManager : MonoBehaviour
     public void addCurrency(int price)
     {
         currencyTotal += price;
+        setTapioca();
         checkMax();
     }
 
     public void subCurrency(int price)
     {
         currencyTotal -= price;
-        if (currencyTotal <= currencyMax / 2)
-        {
-            GameMaster.instance.SetTapiocaState(1);
-        }
-
-        if (currencyTotal <= currencyMax / 4)
-        {
-            GameMaster.instance.SetTapiocaState(2);
-        }
-        if (currencyTotal == 0)
-        {
-            GameMaster.instance.SetTapiocaState(3);
-        }
+        setTapioca();
         if (currencyTotal < 0)
         {
             currencyTotal = 0;
             GameMaster.instance.GameOver();
         }
+    }
+
+    public void setTapioca() 
+    {
+        GameMaster.instance.setTapioca(Mathf.FloorToInt((float)(currencyTotal * 100 / currencyMax)));
     }
 
     private void Update()

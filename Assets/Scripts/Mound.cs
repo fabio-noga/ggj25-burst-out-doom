@@ -7,7 +7,8 @@ public class Mound : MonoBehaviour
 {
     public List<MeshRenderer> _balls;
 
-    private int _countOfBalls;
+    public int ballRatio;
+    private int maxBalls = 28;
 
     private void Start()
     {
@@ -17,11 +18,12 @@ public class Mound : MonoBehaviour
                 _balls.Add(mr);
         }
 
-        _countOfBalls = _balls.Count;
+        ballRatio = 100;
     }
 
     private void Update()
     {
+        UpdateBalls();
         // test
         //if (Input.GetKeyDown("space"))
         //{
@@ -29,14 +31,19 @@ public class Mound : MonoBehaviour
         //}
     }
 
-    public void RemoveBalls()
+    public void UpdateBalls()
     {
-        if(_countOfBalls > 0){
-            for (int i = _countOfBalls-1; i > (_countOfBalls/2)-1; i--)
-            {
-                _balls[i].enabled = false;
-            }
-            _countOfBalls -= _countOfBalls / 2;
+        if (ballRatio < 0)
+            return;
+        int curBalls = (int) ballRatio * maxBalls / 100;
+        for (int i = maxBalls-1; i >= 0; i--)
+        {
+            _balls[i].enabled = i<curBalls;
         }
+    }
+
+    public void set(double value)
+    {
+        ballRatio = (int) value;
     }
 }

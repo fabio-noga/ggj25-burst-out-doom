@@ -12,14 +12,8 @@ public class GameMaster : MonoBehaviour
 
     public GameObject _tapioca;
 
-    //[SerializeField]
-    private double _tapiocaHp;
     [SerializeField]
     private int _maxTapiocaHp;
-
-    private bool _state1 = false;
-    private bool _state2 = false;
-    private bool _state3 = false;
 
     private AudioSource _audioSource;
 
@@ -58,7 +52,6 @@ public class GameMaster : MonoBehaviour
         _sceneMasterInstance = SceneMaster.instance;
         _gameOverBox.SetActive(false);
         //_tapiocaHp = _maxTapiocaHp;
-        _tapiocaHp = BuildManager.instance.currencyTotal;
     }
 
     /*public void SubTapiocaHp(int valueToSub)
@@ -81,32 +74,9 @@ public class GameMaster : MonoBehaviour
         }
     }*/
 
-    public void SetTapiocaState(int state)
+    public void setTapioca(int value)
     {
-        if(state == 1)
-        {
-            if(_state1 == false)
-            {
-                _state1 = true;
-                _mound.RemoveBalls();
-            }
-        }
-        else if(state == 2)
-        {
-            if (_state2 == false)
-            {
-                _state2 = true;
-                _mound.RemoveBalls();
-            }
-        }
-        else if (state == 3)
-        {
-            if (_state3 == false)
-            {
-                _state3 = true;
-                _mound.RemoveBalls();
-            }
-        }
+        _mound.set(value);
     }
 
     public void Win()
