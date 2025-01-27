@@ -49,7 +49,7 @@ public class Spawner : MonoBehaviour
             "sssssbb 1000",
             "ssbssbss 900",
             "ssbgssb 800",
-            "ssbgggbbb 700",
+            "bbbssbggg 700",
             "sbbsbbggg 600",
             "bbbgggbbb 500"
         };
@@ -92,15 +92,16 @@ public class Spawner : MonoBehaviour
         {
             case 'b': 
                 enemy = GameObject.Instantiate(_bigEnemy);
-                enemy.GetComponent<Enemy>().setSpeed(2f);
-                enemy.GetComponent<Enemy>().setLife(300);
+                enemy.GetComponent<Enemy>().setType(EnemyClass.BIG);
                 break;
             case 'g': 
                 enemy = GameObject.Instantiate(_bossEnemy);
-                enemy.GetComponent<Enemy>().setSpeed(.3f);
-                enemy.GetComponent<Enemy>().setLife(50);
+                enemy.GetComponent<Enemy>().setType(EnemyClass.GHOST);
                 break;
-            default: enemy = GameObject.Instantiate(_smallEnemy); break;
+            default: 
+                enemy = GameObject.Instantiate(_smallEnemy);
+                enemy.GetComponent<Enemy>().setType(EnemyClass.SMALL);
+                break;
         }
         buildManager.enemyCounter++;
         enemy.GetComponent<SplineAnimate>().Container = _spline;
@@ -111,24 +112,21 @@ public class Spawner : MonoBehaviour
     public void StartSpawningCoRoutine(List<string> enemyList)
     {
         string round = "";
-        if (roundsLeft < 0)
+        if (roundsTotal - roundsLeft >= roundsTotal)
         {
-            //round = generateRound();
+            round = generateRound();
 
             // game WIN routine
             // go to menu
-
+            // countdown = 9999
             
         }
         else
         {
-            if(enemyList.Count > 0)
-            {
-                round = enemyList.ElementAt(roundsTotal - roundsLeft);
-                Debug.Log(round);
-            }
-            StartCoroutine(SpawnerRoutine(round));
+            round = enemyList.ElementAt(roundsTotal - roundsLeft);
         }
+        Debug.Log(round);
+        StartCoroutine(SpawnerRoutine(round));
     }
 
     IEnumerator SpawnerRoutine(string enemieRaw)
@@ -149,8 +147,8 @@ public class Spawner : MonoBehaviour
         isRoundGoing = false;
         if(roundsLeft < 0)
         {
-            GameMaster.instance.Win();
-            countdown = 99999;
+            //GameMaster.instance.Win();
+            //countdown = 99999;
         }
         else
         {

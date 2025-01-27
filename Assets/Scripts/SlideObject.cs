@@ -25,7 +25,7 @@ public class SlideObject : MonoBehaviour
     [SerializeField]
     private bool _reset = false;
 
-    private float speed = 1f;
+    protected float speed = 1f;
 
     void OnStartBehavior()
     {

@@ -1,5 +1,6 @@
 using System.Collections;
 using System.ComponentModel;
+using TMPro;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
@@ -12,7 +13,7 @@ public class GameMaster : MonoBehaviour
     public GameObject _tapioca;
 
     //[SerializeField]
-    private int _tapiocaHp;
+    private double _tapiocaHp;
     [SerializeField]
     private int _maxTapiocaHp;
 
@@ -23,8 +24,17 @@ public class GameMaster : MonoBehaviour
 
     private SceneMaster _sceneMasterInstance;
 
+    [Header("Windows")]
     [SerializeField]
     private GameObject _gameOverBox;
+    [SerializeField]
+    public TMP_Text _gameOverText;
+    [SerializeField]
+    public GameObject _restartButton;
+    [SerializeField]
+    public GameObject _continueButton;
+    [SerializeField]
+    public TMP_Text _gameOverScore;
     [SerializeField]
     private GameObject _winBox;
 
@@ -46,13 +56,13 @@ public class GameMaster : MonoBehaviour
     {
         _sceneMasterInstance = SceneMaster.instance;
         _gameOverBox.SetActive(false);
-        _tapiocaHp = _maxTapiocaHp;
+        //_tapiocaHp = _maxTapiocaHp;
+        _tapiocaHp = BuildManager.instance.currencyTotal;
     }
 
     public void SubTapiocaHp(int valueToSub)
     {
         _tapiocaHp -= valueToSub;
-        Debug.Log(_tapiocaHp);
         if(_tapiocaHp <= _maxTapiocaHp / 2)
         {
             SetTapiocaState(1);
@@ -99,6 +109,7 @@ public class GameMaster : MonoBehaviour
 
     private void GameOver()
     {
+        _gameOverScore.SetText("Total Score: " + BuildManager.instance.currencyMax);
         SceneMaster.instance._audioSource.Stop();
         StartCoroutine(GameOverCoroutine(5));
     }
@@ -115,11 +126,15 @@ public class GameMaster : MonoBehaviour
 
     IEnumerator GameOverCoroutine(int waitTime)
     {
-        yield return new WaitForSeconds(2);
+        //yield return new WaitForSeconds(2);
         PlayAudioSource(_defeatMusic);
+        _continueButton.SetActive(false);
+        _restartButton.SetActive(true);
+        _gameOverText.SetText("Game Over");
         _gameOverBox.SetActive(true);
-        yield return new WaitForSeconds(waitTime);
-        _sceneMasterInstance.GoToMenu();
+        Time.timeScale = 0f;
+        //yield return new WaitForSeconds(waitTime);
+        //_sceneMasterInstance.GoToMenu();
         yield return null;
     }
 
@@ -129,5 +144,20 @@ public class GameMaster : MonoBehaviour
         yield return new WaitForSeconds(waitTime);
         _sceneMasterInstance.GoToMenu();
         yield return null;
+    }
+
+    public void PauseGame()
+    {
+        _restartButton.SetActive(false);
+        _continueButton.SetActive(true);
+        _gameOverText.SetText("Paused");
+        _gameOverBox.SetActive(true);
+        Time.timeScale = 0f;
+    }
+
+    public void ContinueGame()
+    {
+        Time.timeScale = 1f;
+        _gameOverBox.SetActive(false);
     }
 }
