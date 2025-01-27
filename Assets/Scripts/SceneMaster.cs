@@ -2,6 +2,7 @@ using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.SceneManagement;
 
+[RequireComponent(typeof(AudioSource))]
 public class SceneMaster : MonoBehaviour
 {
     public static SceneMaster instance;
@@ -16,7 +17,7 @@ public class SceneMaster : MonoBehaviour
     private void Awake()
     {
         if (instance != null)
-            Destroy(gameObject);
+            return;
         instance = this;
 
         DontDestroyOnLoad(this);
@@ -24,7 +25,20 @@ public class SceneMaster : MonoBehaviour
 
     void Start()
     {
+        checkAudioCreation();
         OnStartSceneBehavior();
+    }
+
+    private void checkAudioCreation()
+    {
+        if (_audioSource == null)
+        {
+            _audioSource = GetComponent<AudioSource>();
+            if (_audioSource == null)
+            {
+                _audioSource = gameObject.AddComponent<AudioSource>();
+            }
+        }
     }
 
     private void OnStartSceneBehavior()
@@ -85,5 +99,11 @@ public class SceneMaster : MonoBehaviour
     public void Exit()
     {
         Application.Quit();
+    }
+
+    public void stopAudio()
+    {
+        checkAudioCreation();
+        _audioSource.Stop();
     }
 }

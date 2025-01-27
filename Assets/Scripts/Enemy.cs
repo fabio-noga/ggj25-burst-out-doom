@@ -70,7 +70,6 @@ public class Enemy : SlideObject
 
         PlayAudioSource(_normalSfx);
         buildManager.subCurrency(damage);
-        _gameMaster.SubTapiocaHp(damage);
 
         buildManager.enemyCounter--;
         Destroy(gameObject);

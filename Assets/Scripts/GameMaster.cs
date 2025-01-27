@@ -19,6 +19,7 @@ public class GameMaster : MonoBehaviour
 
     private bool _state1 = false;
     private bool _state2 = false;
+    private bool _state3 = false;
 
     private AudioSource _audioSource;
 
@@ -60,7 +61,7 @@ public class GameMaster : MonoBehaviour
         _tapiocaHp = BuildManager.instance.currencyTotal;
     }
 
-    public void SubTapiocaHp(int valueToSub)
+    /*public void SubTapiocaHp(int valueToSub)
     {
         _tapiocaHp -= valueToSub;
         if(_tapiocaHp <= _maxTapiocaHp / 2)
@@ -78,9 +79,9 @@ public class GameMaster : MonoBehaviour
             _tapiocaHp = 0;
             GameOver();
         }
-    }
+    }*/
 
-    private void SetTapiocaState(int state)
+    public void SetTapiocaState(int state)
     {
         if(state == 1)
         {
@@ -98,19 +99,27 @@ public class GameMaster : MonoBehaviour
                 _mound.RemoveBalls();
             }
         }
+        else if (state == 3)
+        {
+            if (_state3 == false)
+            {
+                _state3 = true;
+                _mound.RemoveBalls();
+            }
+        }
     }
 
     public void Win()
     {
-        SceneMaster.instance._audioSource.Stop();
+        SceneMaster.instance.stopAudio();
         PlayAudioSource(_winMusic);
         StartCoroutine(WinCoroutine(5));
     }
 
-    private void GameOver()
+    public void GameOver()
     {
         _gameOverScore.SetText("Total Score: " + BuildManager.instance.currencyMax);
-        SceneMaster.instance._audioSource.Stop();
+        SceneMaster.instance.stopAudio();
         StartCoroutine(GameOverCoroutine(5));
     }
 
