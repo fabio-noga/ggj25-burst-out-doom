@@ -3481,6 +3481,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: SceneMaster
       objectReference: {fileID: 0}
+    - target: {fileID: 2168225870502651875, guid: 2b8c88d6da75b4a4da78f8798c73fecb, type: 3}
+      propertyPath: _menuMusic
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 2168225870502651875, guid: 2b8c88d6da75b4a4da78f8798c73fecb, type: 3}
+      propertyPath: _audioSource
+      value: 
+      objectReference: {fileID: 1816141181}
     - target: {fileID: 7367718305716615776, guid: 2b8c88d6da75b4a4da78f8798c73fecb, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -7714,6 +7722,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 08a7a009bf849004da40d35972b8dd98, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!82 &1816141181 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 9048605012973859329, guid: 2b8c88d6da75b4a4da78f8798c73fecb, type: 3}
+  m_PrefabInstance: {fileID: 733983969}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1818277554 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2691805377332390949, guid: 153476fbaec6737499999c02a8cfb551, type: 3}
