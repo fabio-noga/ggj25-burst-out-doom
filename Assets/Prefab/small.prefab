@@ -309,12 +309,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _duration: 15
-  _maxHp: 100
+  _maxHp: 200
   _reset: 0
+  speed: 1
   type: 0
   _slider: {fileID: 8363468079657367420}
   _bossSfx: {fileID: 8300000, guid: 3c12a4a39013c05478cfd87443e66ad1, type: 3}
   _normalSfx: {fileID: 8300000, guid: a58838576e1da1043b53d2ccc7ab21d0, type: 3}
+  damage: 30
 --- !u!82 &-1658572800902976261
 AudioSource:
   m_ObjectHideFlags: 0
@@ -714,7 +716,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d9cfbcb0240b34f469c02080ebf95593, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0
+      value: 0.36
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: d9cfbcb0240b34f469c02080ebf95593, type: 3}
       propertyPath: m_LocalPosition.z

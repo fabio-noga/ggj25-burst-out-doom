@@ -1,11 +1,23 @@
 using System;
+using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Audio;
 using UnityEngine.UI;
 
+public enum EnemyClass
+{
+    SMALL, BIG, GHOST
+}
 public class Enemy : SlideObject
 {
-    public EnemyClass type = EnemyClass.SMALL;
+    public static readonly Dictionary<EnemyClass, (int life, int damage, float speed)> _stats = new()
+    {
+        { EnemyClass.SMALL, (life: 200, damage: 100, speed:1f) },
+        { EnemyClass.BIG, (life: 500, damage: 1000, speed:1.65f) },
+        { EnemyClass.GHOST, (life: 100, damage: 50, speed:.5f) }
+    };
+
+    private EnemyClass type = EnemyClass.SMALL;
 
     private Quaternion _fixedRotation = Quaternion.Euler(45.0f, 0.0f, 0.0f);
 
@@ -17,6 +29,7 @@ public class Enemy : SlideObject
     private AudioResource _bossSfx;
     [SerializeField]
     private AudioResource _normalSfx;
+    private int damage;
 
     /*public Enemy(EnemyClass type) 
     {
@@ -35,13 +48,13 @@ public class Enemy : SlideObject
     {
          buildManager = BuildManager.instance;
     }*/
-    private void Start()
+    private new void Start()
     {
         base.Start();
         _slider.maxValue = _maxHp;
     }
 
-    protected void Update()
+    protected new void Update()
     {
         base.Update();
         _slider.transform.rotation = _fixedRotation;
@@ -55,19 +68,9 @@ public class Enemy : SlideObject
         base.OnReachSplineEnd();
 
 
-        // retirar score, vida whatever
-        if (type == EnemyClass.BOSS)
-        {
-            PlayAudioSource(_bossSfx);
-            buildManager.subCurrency(10000);
-            _gameMaster.SubTapiocaHp(100);
-        }
-        else
-        {
-            PlayAudioSource(_normalSfx);
-            buildManager.subCurrency(20);
-            _gameMaster.SubTapiocaHp(10);
-        }
+        PlayAudioSource(_normalSfx);
+        buildManager.subCurrency(damage);
+        _gameMaster.SubTapiocaHp(damage);
 
         buildManager.enemyCounter--;
         Destroy(gameObject);
@@ -77,11 +80,6 @@ public class Enemy : SlideObject
     {
         return _hp;
     }
-    public void setLife(int life)
-    {
-        _hp = life;
-    }
-
 
     public void subLife(int hp)
     {
@@ -96,22 +94,42 @@ public class Enemy : SlideObject
 
     }
 
+    
+
     public int getPrice()
     {
         switch(type)
         {
             case EnemyClass.BIG:
                 return 50;
-            case EnemyClass.BOSS:
+            case EnemyClass.GHOST:
                 return 200;
         }
         return 20;
     }
 
-    public enum EnemyClass
+    public void setType(EnemyClass type)
     {
-        SMALL, BIG, BOSS
+        this.type = type;
+        setLife();
+        setDamage();
+        setSpeed();
     }
+
+    private void setLife()
+    {
+        _hp = _stats[type].life;
+    }
+    private void setDamage()
+    {
+        damage = _stats[type].damage;
+    }
+
+    private void setSpeed()
+    {
+        base.setSpeed(_stats[type].speed);
+    }
+
 
     void PlayAudioSource(AudioResource audioClip)
     {
@@ -122,30 +140,6 @@ public class Enemy : SlideObject
         _audioSource.resource = audioClip;
 
         _audioSource.Play();
-    }
-}
-
-public class SmallEnemy : Enemy
-{
-    public SmallEnemy()
-    {
-        type = EnemyClass.SMALL;
-    }
-}
-
-public class BigEnemy : Enemy
-{
-    public BigEnemy()
-    {
-        type = EnemyClass.BIG;
-    }
-}
-
-public class BossEnemy : Enemy
-{
-    public BossEnemy()
-    {
-        type = EnemyClass.BOSS;
     }
 }
 

@@ -1,3 +1,4 @@
+using System;
 using TMPro;
 using UnityEngine;
 
@@ -6,6 +7,7 @@ public class BuildManager : MonoBehaviour
     public static BuildManager instance;
     public TMP_Text currencyText;
     public double currencyTotal;
+    public double currencyMax;
 
     public int enemyCounter = 0;
 
@@ -14,6 +16,11 @@ public class BuildManager : MonoBehaviour
         if (instance != null)
             return;
         instance = this;
+    }
+
+    private void Start()
+    {
+        currencyMax = currencyTotal;
     }
 
     private GameObject turretToBuild;
@@ -36,6 +43,7 @@ public class BuildManager : MonoBehaviour
     public void addCurrency(int price)
     {
         currencyTotal += price;
+        checkMax();
     }
 
     public void subCurrency(int price)
@@ -60,5 +68,10 @@ public class BuildManager : MonoBehaviour
     public bool canBuy(int price)
     {
         return currencyTotal - price >= 0;
+    }
+
+    private void checkMax()
+    {
+        currencyMax = Math.Max(currencyMax,currencyTotal);
     }
 }

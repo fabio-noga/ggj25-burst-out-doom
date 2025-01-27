@@ -80,7 +80,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   range: 12
   fireRate: 1
-  bulletDamage: 20
+  bulletDamage: 30
   bulletSpeed: 70
   price: 100
   enemyTag: enemy

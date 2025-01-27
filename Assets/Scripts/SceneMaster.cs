@@ -60,6 +60,7 @@ public class SceneMaster : MonoBehaviour
 
     public void PlayLevel()
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene("Level");
         _currentScene = SceneManager.GetSceneByName("Level");
 
@@ -76,6 +77,7 @@ public class SceneMaster : MonoBehaviour
 
     public void GoToMenu()
     {
+        Time.timeScale = 1f;
         SceneManager.LoadScene("Menu");
         _currentScene = SceneManager.GetSceneByName("Menu");
     }

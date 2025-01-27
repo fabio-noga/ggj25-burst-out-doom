@@ -8,7 +8,7 @@ public class ShopButton : UIButton
     // Im lazy
     public int shopValue;
 
-    private void Start()
+    private new void Start()
     {
         base.Start();
 

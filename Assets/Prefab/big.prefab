@@ -459,12 +459,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _duration: 15
-  _maxHp: 100
+  _maxHp: 500
   _reset: 0
+  speed: 1
   type: 0
   _slider: {fileID: 3409722018448230591}
   _bossSfx: {fileID: 8300000, guid: 3c12a4a39013c05478cfd87443e66ad1, type: 3}
   _normalSfx: {fileID: 8300000, guid: a58838576e1da1043b53d2ccc7ab21d0, type: 3}
+  damage: 30
 --- !u!82 &-5644234657546164592
 AudioSource:
   m_ObjectHideFlags: 0
